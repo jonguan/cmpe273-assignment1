@@ -1,0 +1,23 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                   controllers.Application.index
+GET     /users                              controllers.Application.listUsers
+POST    /users                              controllers.Application.createUser
+GET     /users/:user_id                     controllers.Application.getUser(user_id:String)
+PUT     /users/:user_id                     controllers.Application.updateUser(user_id:String)
+POST    /users/:user_id/idcards             controllers.Application.createCard(user_id:String)
+GET     /users/:user_id/idcards             controllers.Application.getCards(user_id:String)
+DELETE  /users/:user_id/idcards/:card_id    controllers.Application.deleteCard(user_id:String, card_id:String)
+GET     /users/:user_id/idcards/:card_id    controllers.Application.getCard(user_id:String, card_id:String)
+POST    /users/:user_id/weblogins           controllers.Application.createLogin(user_id:String)
+GET     /users/:user_id/weblogins           controllers.Application.getLogins(user_id:String)
+DELETE  /users/:user_id/weblogins/:login_id controllers.Application.deleteLogin(user_id:String, login_id:String)
+POST    /users/:user_id/bankaccounts        controllers.Application.createBankAccount(user_id:String)
+GET     /users/:user_id/bankaccounts        controllers.Application.getBankAccounts(user_id:String)
+DELETE  /users/:user_id/bankaccounts/:ba_id controllers.Application.deleteBankAccount(user_id:String, ba_id:String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
