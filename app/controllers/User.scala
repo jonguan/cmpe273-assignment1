@@ -14,14 +14,15 @@ case class WebLogin(login_id:Option[Int], url:String, login:String, password:Str
 case class BankAccount(ba_id:Option[Int], account_name:Option[String], routing_number:String, account_number:String)
 
 object User {
-    
     var userHashMap = scala.collection.mutable.HashMap[Int, User]()
     // Hash maps of hash maps {user_id: hashMap} --> {card_id:card}
     var cardHashMap = scala.collection.mutable.HashMap[Int, HashMap[Int, IDCard]]()
     var webHashMap = scala.collection.mutable.HashMap[Int, HashMap[Int, WebLogin]]()
     var bankHashMap = scala.collection.mutable.HashMap[Int, HashMap[Int, BankAccount]]()
     
-  var list: List[User] = {
+    val ID_MAX: Int = 1000000
+    
+    var list: List[User] = {
     List(
       User(
         Some(1),
@@ -48,7 +49,7 @@ object User {
       val user_id = user.user_id.getOrElse(-1)
       if (user_id == -1) {
           // New User
-          val new_id:Int = scala.util.Random.nextInt(10)
+          val new_id:Int = scala.util.Random.nextInt(ID_MAX)
           newUser = user.copy(user_id=Some(new_id), created_at=Some(new DateTime()))
           
       } else {
@@ -89,7 +90,7 @@ object User {
       val card_id = card.card_id.getOrElse(-1)
       if (card_id == -1) {
           // New User
-          val newCard_id = scala.util.Random.nextInt(10)
+          val newCard_id = scala.util.Random.nextInt(ID_MAX)
           newCard = card.copy(card_id = Some(newCard_id))
           userCardHashMap.put(newCard.card_id.getOrElse(-1), newCard)
           return newCard
@@ -138,7 +139,7 @@ object User {
       val login_id = login.login_id.getOrElse(-1)
       if (login_id == -1) {
           // New User
-          val newLogin_id = scala.util.Random.nextInt(10)
+          val newLogin_id = scala.util.Random.nextInt(ID_MAX)
           newLogin = login.copy(login_id = Some(newLogin_id))
           userWebHashMap.put(newLogin.login_id.getOrElse(-1), newLogin)
           return newLogin
@@ -178,7 +179,7 @@ object User {
       val ba_id = account.ba_id.getOrElse(-1)
       if (ba_id == -1) {
           // New User
-          val newBa_id = scala.util.Random.nextInt(10)
+          val newBa_id = scala.util.Random.nextInt(ID_MAX)
           newAccount = account.copy(ba_id = Some(newBa_id))
           userBankHashMap.put(newAccount.ba_id.getOrElse(-1), newAccount)
           return newAccount
