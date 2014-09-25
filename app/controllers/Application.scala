@@ -12,9 +12,9 @@ import org.joda.time.format.DateTimeFormat
 
 object Application extends Controller {
 
-  def index = Action (parse.json) {
-    //Ok(views.html.index("Your new application is ready."))
-    implicit request => Ok("Got request [" + request + "]")
+  def index = Action {
+    Ok(views.html.index("Your new application is ready. Run commands on /api/v1"))
+    //implicit request => Ok("Got request [" + request + "]")
   }
   
 implicit val userIDWrites: Writes[Int] = new Writes[Int] {
