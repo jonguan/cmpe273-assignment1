@@ -135,7 +135,8 @@ implicit val bankReads: Reads[BankAccount] = (
     } else {
         val json = Json.toJson(user)
         Ok(json).withHeaders(
-            LAST_MODIFIED -> DateTimeFormatter.writes(lastModified).toString()
+            // Drop quotes from date string
+            LAST_MODIFIED -> DateTimeFormatter.writes(lastModified).toString.drop(1).dropRight(1)
             )
     }
     
